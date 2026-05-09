@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jolene Nail Spa — Elk Grove Village, IL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #080504;
+      --bg-surface:  #110a09;
+      --bg-card:     #160c0b;
+      --mahogany:    #2a1312;
+      --mahogany-mid:#3d2220;
+      --cream:       #faf4eb;
+      --cream-60:    rgba(250,244,235,0.6);
+      --cream-30:    rgba(250,244,235,0.3);
+      --rose:        #be7a62;
+      --rose-light:  #e8b4a8;
+      --gold:        #c9a96e;
+      --stone:       #8a7270;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body:    'DM Sans', sans-serif;
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --section-pad: clamp(5rem, 10vw, 8.5rem);
+      --gutter:      clamp(1.25rem, 5vw, 5rem);
+    }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { text-decoration: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* grain */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px;
+    }
+
+    /* ── UTILITY ── */
+    .container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 var(--gutter); }
+
+    .eyebrow {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      font-weight: 700; line-height: 1.04; letter-spacing: -0.015em;
+      color: var(--cream);
+    }
+
+    .section-sub {
+      font-size: 1rem; line-height: 1.75;
+      color: var(--cream-60); max-width: 50ch; margin-top: 1.25rem;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.95rem 2.4rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      border-radius: 2px; border: none; cursor: pointer;
+      transition: all 0.3s var(--ease-out);
+    }
+
+    .btn-primary { background: var(--rose); color: var(--cream); }
+    .btn-primary:hover {
+      background: var(--rose-light); transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(190,122,98,0.35);
+    }
+
+    .btn-ghost {
+      background: transparent; color: var(--cream);
+      border: 1px solid rgba(250,244,235,0.3);
+    }
+    .btn-ghost:hover { border-color: var(--cream); background: rgba(250,244,235,0.05); }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.5rem var(--gutter);
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.45s var(--ease-out), padding 0.35s;
+    }
+
+    .nav.scrolled {
+      background: rgba(8,5,4,0.93);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      padding: 1rem var(--gutter);
+      border-bottom: 1px solid rgba(212,195,193,0.08);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--cream); letter-spacing: 0.02em;
+    }
+    .nav-logo em { font-style: italic; color: var(--rose-light); }
+
+    .nav-links {
+      display: flex; align-items: center;
+      gap: 2.25rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cream-60); transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+
+    .nav-book {
+      background: var(--rose) !important; color: var(--cream) !important;
+      padding: 0.65rem 1.6rem; border-radius: 2px;
+      transition: all 0.25s var(--ease-out) !important;
+    }
+    .nav-book:hover { background: var(--rose-light) !important; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100svh; min-height: 640px;
+      display: flex; align-items: flex-end;
+      padding-bottom: clamp(3.5rem, 8vh, 6rem);
+      overflow: hidden;
+    }
+
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transform: scale(1.06);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(155deg, rgba(8,5,4,0.18) 0%, rgba(8,5,4,0.52) 45%, rgba(8,5,4,0.9) 100%);
+    }
+
+    .hero-content { position: relative; z-index: 2; width: 100%; }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 10vw, 9.5rem);
+      font-weight: 900; line-height: 0.93;
+      letter-spacing: -0.03em; color: var(--cream);
+      margin-bottom: 1.75rem;
+    }
+    .hero h1 .line { display: block; overflow: hidden; }
+    .hero h1 .line-inner { display: block; }
+    .hero h1 em { font-style: italic; font-weight: 700; color: var(--rose-light); }
+
+    .hero-meta {
+      display: flex; align-items: flex-end;
+      gap: 3rem; flex-wrap: wrap;
+    }
+    .hero-sub {
+      font-size: clamp(0.875rem, 1.4vw, 1rem);
+      line-height: 1.65; color: var(--cream-60); max-width: 38ch;
+    }
+    .hero-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; }
+
+    .hero-scroll {
+      position: absolute; bottom: 2rem; right: var(--gutter);
+      z-index: 2; writing-mode: vertical-rl;
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--cream-30);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-scroll::after {
+      content: ''; width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--rose), transparent);
+      animation: pulse-line 2s ease-in-out infinite;
+    }
+    @keyframes pulse-line {
+      0%,100% { opacity: 0.4; } 50% { opacity: 1; }
+    }
+
+    /* ── MARQUEE ── */
+    .marquee { overflow: hidden; background: var(--rose); padding: 0.9rem 0; }
+    .marquee-inner {
+      display: flex; white-space: nowrap;
+      animation: scroll-left 30s linear infinite;
+    }
+    .marquee-inner span {
+      flex-shrink: 0; padding: 0 1.5rem;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cream);
+    }
+    .marquee-inner .sep { color: rgba(250,244,235,0.4); padding: 0; }
+    @keyframes scroll-left {
+      from { transform: translateX(0); } to { transform: translateX(-50%); }
+    }
+
+    /* ── ABOUT ── */
+    .about { padding: var(--section-pad) 0; background: var(--bg); }
+
+    .about-grid {
+      display: grid; grid-template-columns: 55% 1fr;
+      gap: 5rem; align-items: center;
+    }
+
+    .about-media { position: relative; padding-bottom: 3rem; }
+
+    .about-img-main {
+      width: 100%; aspect-ratio: 4/5;
+      object-fit: cover; border-radius: 2px;
+    }
+    .about-img-float {
+      position: absolute; bottom: 0; right: -3rem;
+      width: 42%; aspect-ratio: 3/4;
+      object-fit: cover; border-radius: 2px;
+      border: 5px solid var(--bg);
+    }
+    .about-badge {
+      position: absolute; top: 1.75rem; left: 1.75rem;
+      background: rgba(8,5,4,0.75); backdrop-filter: blur(10px);
+      border: 1px solid rgba(250,244,235,0.1);
+      border-radius: 2px; padding: 1rem 1.5rem;
+    }
+    .about-badge strong {
+      font-family: var(--font-display);
+      font-size: 2.25rem; font-weight: 900;
+      color: var(--gold); display: block; line-height: 1;
+    }
+    .about-badge span {
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone);
+    }
+
+    .about-text .section-title { margin-bottom: 1.5rem; }
+
+    .about-body { font-size: 0.975rem; line-height: 1.78; color: var(--cream-60); }
+    .about-body + .about-body { margin-top: 1rem; }
+
+    .about-stats {
+      display: flex; gap: 2rem;
+      margin-top: 2.75rem; padding-top: 2rem;
+      border-top: 1px solid rgba(250,244,235,0.08);
+    }
+    .stat { flex: 1; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem; font-weight: 900;
+      color: var(--rose); line-height: 1; display: block;
+    }
+    .stat-label {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--stone); display: block; margin-top: 0.4rem;
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      padding: var(--section-pad) 0;
+      background: var(--mahogany);
+      position: relative; overflow: hidden;
+    }
+    .services-watermark {
+      position: absolute; bottom: -0.05em; left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 20vw, 20rem);
+      font-weight: 900; color: rgba(250,244,235,0.025);
+      white-space: nowrap; pointer-events: none;
+      letter-spacing: -0.04em; line-height: 1; user-select: none;
+    }
+
+    .services-head { text-align: center; margin-bottom: 4rem; }
+    .services-head .eyebrow { color: var(--rose-light); }
+    .services-head .section-sub { margin: 1.25rem auto 0; }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: rgba(250,244,235,0.06);
+      border-radius: 3px; overflow: hidden;
+    }
+
+    .svc-card {
+      background: rgba(8,5,4,0.5);
+      padding: 2.75rem 3rem;
+      transition: background 0.3s;
+    }
+    .svc-card:hover { background: rgba(8,5,4,0.72); }
+
+    .svc-num {
+      font-family: var(--font-display);
+      font-size: 4.5rem; font-weight: 900;
+      color: rgba(250,244,235,0.055);
+      line-height: 1; display: block; margin-bottom: 0.5rem;
+    }
+    .svc-name {
+      font-family: var(--font-display);
+      font-size: 1.65rem; font-weight: 700;
+      color: var(--cream); margin-bottom: 1.75rem;
+    }
+
+    .svc-items { list-style: none; }
+    .svc-row {
+      display: flex; justify-content: space-between;
+      align-items: baseline; gap: 1rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(250,244,235,0.055);
+      font-size: 0.875rem; color: var(--cream-60);
+    }
+    .svc-row:last-child { border-bottom: none; }
+    .svc-price {
+      font-family: var(--font-display);
+      font-size: 1rem; font-weight: 700;
+      color: var(--gold); white-space: nowrap;
+    }
+
+    /* ── GALLERY ── */
+    .gallery { padding: var(--section-pad) 0; background: var(--bg-surface); }
+
+    .gallery-head {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-bottom: 2.5rem;
+    }
+
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 260px; gap: 0.6rem;
+    }
+    .gallery-item { overflow: hidden; border-radius: 2px; background: var(--mahogany); }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item:nth-child(6) { grid-column: span 2; }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s var(--ease-out);
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    /* ── WHY ── */
+    .why { padding: var(--section-pad) 0; background: var(--bg); }
+
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: start;
+    }
+    .why-sticky { position: sticky; top: 8rem; }
+    .why-sticky .section-title { margin-bottom: 1.25rem; }
+
+    .pillars { list-style: none; }
+    .pillar {
+      display: grid; grid-template-columns: 2.5rem 1fr;
+      gap: 1.25rem; align-items: start;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(250,244,235,0.07);
+    }
+    .pillar:first-child { padding-top: 0; }
+    .pillar-num {
+      font-family: var(--font-display);
+      font-size: 0.9rem; font-weight: 700;
+      color: var(--rose); padding-top: 0.35rem; opacity: 0.8;
+    }
+    .pillar h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem; font-weight: 700;
+      color: var(--cream); margin-bottom: 0.5rem;
+    }
+    .pillar p { font-size: 0.9rem; line-height: 1.68; color: var(--cream-60); }
+
+    /* ── TEAM ── */
+    .team { padding: var(--section-pad) 0; background: var(--bg-surface); }
+    .team-head { text-align: center; margin-bottom: 3.5rem; }
+    .team-head .section-sub { margin: 1rem auto 0; text-align: center; }
+
+    .team-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    .team-card {
+      border-radius: 2px; overflow: hidden;
+      border: 1px solid rgba(250,244,235,0.07);
+      background: var(--bg-card);
+    }
+    .team-placeholder {
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, var(--mahogany) 0%, rgba(42,19,18,0.4) 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+    }
+    .team-placeholder-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 1px solid rgba(250,244,235,0.12);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .team-placeholder-icon svg { width: 26px; height: 26px; color: rgba(250,244,235,0.2); }
+    .team-placeholder-label {
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(250,244,235,0.2);
+    }
+    .team-info {
+      padding: 1.5rem 1.75rem;
+      border-top: 1px solid rgba(250,244,235,0.06);
+    }
+    .team-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 700; color: var(--cream); margin-bottom: 0.3rem;
+    }
+    .team-role {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose);
+    }
+
+    /* ── REVIEWS ── */
+    .reviews {
+      padding: var(--section-pad) 0;
+      background: var(--mahogany);
+      position: relative; overflow: hidden;
+    }
+    .reviews::before {
+      content: '"';
+      position: absolute; top: -0.15em; left: -0.05em;
+      font-family: var(--font-display);
+      font-size: clamp(12rem, 28vw, 28rem); font-weight: 900; line-height: 1;
+      color: rgba(250,244,235,0.03); pointer-events: none; user-select: none;
+    }
+
+    .reviews-head { text-align: center; margin-bottom: 3.5rem; }
+    .reviews-head .eyebrow { color: var(--gold); }
+
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    .review {
+      background: rgba(8,5,4,0.45);
+      border: 1px solid rgba(250,244,235,0.07);
+      border-radius: 2px; padding: 2.25rem 2rem;
+      transition: background 0.3s;
+    }
+    .review:hover { background: rgba(8,5,4,0.65); }
+    .review-stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.1em; margin-bottom: 1.25rem; }
+    .review-quote {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-style: italic;
+      line-height: 1.6; color: rgba(250,244,235,0.82); margin-bottom: 1.5rem;
+    }
+    .review-name {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream); margin-bottom: 0.2rem;
+    }
+    .review-source { font-size: 0.68rem; color: var(--stone); }
+
+    /* ── BOOK ── */
+    .book {
+      padding: clamp(6rem, 14vw, 11rem) 0;
+      background: var(--bg);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .book::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 70vw; height: 70vw;
+      max-width: 900px; max-height: 900px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(190,122,98,0.09) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .book-content { position: relative; z-index: 1; }
+    .book .section-title { font-size: clamp(3rem, 8vw, 7rem); margin-bottom: 1.25rem; }
+    .book-sub {
+      font-size: 1rem; line-height: 1.7; color: var(--cream-60);
+      max-width: 44ch; margin: 0 auto 2.5rem;
+    }
+    .book-actions {
+      display: flex; gap: 1rem;
+      justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .book-note { font-size: 0.72rem; color: var(--stone); letter-spacing: 0.06em; }
+
+    /* ── CONTACT ── */
+    .contact {
+      padding: var(--section-pad) 0; background: var(--bg-surface);
+      border-top: 1px solid rgba(250,244,235,0.06);
+    }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .contact-info .section-title { font-size: clamp(2rem, 3.5vw, 3.25rem); margin-bottom: 2.5rem; }
+
+    .info-block { margin-bottom: 2rem; }
+    .info-label {
+      display: block; font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--stone); margin-bottom: 0.5rem;
+    }
+    .info-value {
+      font-family: var(--font-display);
+      font-size: 1.35rem; font-weight: 500; line-height: 1.4; color: var(--cream);
+    }
+    .info-value a { color: inherit; transition: color 0.2s; }
+    .info-value a:hover { color: var(--rose); }
+
+    .hours-list { list-style: none; }
+    .hours-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.9rem; padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(250,244,235,0.05);
+      color: var(--cream-60);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row span:last-child { color: var(--stone); }
+
+    .contact-form .section-title { font-size: clamp(2rem, 3.5vw, 3.25rem); margin-bottom: 2rem; }
+
+    .field { margin-bottom: 1.25rem; }
+    .field-label {
+      display: block; font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--stone); margin-bottom: 0.55rem;
+    }
+    .field-input {
+      width: 100%;
+      background: rgba(250,244,235,0.04);
+      border: 1px solid rgba(250,244,235,0.1);
+      border-radius: 2px; padding: 0.9rem 1.1rem;
+      font-family: var(--font-body); font-size: 0.9rem; color: var(--cream);
+      transition: border-color 0.2s;
+    }
+    .field-input:focus { outline: none; border-color: var(--rose); }
+    .field-input::placeholder { color: rgba(250,244,235,0.2); }
+    textarea.field-input { resize: vertical; min-height: 130px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--mahogany); padding: 4.5rem var(--gutter) 2rem; }
+
+    .footer-main {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem; padding-bottom: 3rem; margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(250,244,235,0.07);
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--cream); display: block; margin-bottom: 0.875rem;
+    }
+    .footer-logo em { font-style: italic; color: var(--gold); }
+    .footer-tagline { font-size: 0.875rem; line-height: 1.65; color: rgba(250,244,235,0.42); max-width: 36ch; }
+
+    .footer-col-title {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem; display: block;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .footer-links a { font-size: 0.875rem; color: rgba(250,244,235,0.45); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cream); }
+
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.72rem; color: rgba(250,244,235,0.25);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .about-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .about-img-float { display: none; }
+      .why-sticky { position: static; }
+      .services-grid, .reviews-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 220px; }
+      .gallery-item:nth-child(1), .gallery-item:nth-child(6) { grid-column: span 1; grid-row: span 1; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 580px) {
+      .team-grid, .footer-main { grid-template-columns: 1fr; }
+      .about-stats { flex-wrap: wrap; gap: 1.5rem; }
+      .hero-scroll { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="site-nav">
+    <a href="#home" class="nav-logo"><em>Jolene</em> Nail Spa</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://www.fresha.com/lvp/jolene-nail-spa-meacham-road-elk-grove-village-YKKB5B" target="_blank" rel="noopener" class="nav-book">Book Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <img src="images/348s.jpg" alt="Jolene Nail Spa" />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content container">
+      <span class="eyebrow">Elk Grove Village, Illinois</span>
+      <h1>
+        <span class="line"><span class="line-inner">Where Every</span></span>
+        <span class="line"><span class="line-inner"><em>Detail</em></span></span>
+        <span class="line"><span class="line-inner">Is Art.</span></span>
+      </h1>
+      <div class="hero-meta">
+        <p class="hero-sub">Premium nail care in a space that feels like home. Lyn and her team bring seven years of expertise to every single appointment.</p>
+        <div class="hero-actions">
+          <a href="https://www.fresha.com/lvp/jolene-nail-spa-meacham-road-elk-grove-village-YKKB5B" target="_blank" rel="noopener" class="btn btn-primary">Book on Fresha</a>
+          <a href="#gallery" class="btn btn-ghost">See Our Work</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">Scroll</div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-inner">
+      <span>Jolene Nail Spa</span><span class="sep"> · </span>
+      <span>Elk Grove Village</span><span class="sep"> · </span>
+      <span>Premium Nail Care</span><span class="sep"> · </span>
+      <span>7+ Years of Excellence</span><span class="sep"> · </span>
+      <span>500+ Color Options</span><span class="sep"> · </span>
+      <span>Walk-Ins Welcome</span><span class="sep"> · </span>
+      <span>Book on Fresha</span><span class="sep"> · </span>
+      <span>Jolene Nail Spa</span><span class="sep"> · </span>
+      <span>Elk Grove Village</span><span class="sep"> · </span>
+      <span>Premium Nail Care</span><span class="sep"> · </span>
+      <span>7+ Years of Excellence</span><span class="sep"> · </span>
+      <span>500+ Color Options</span><span class="sep"> · </span>
+      <span>Walk-Ins Welcome</span><span class="sep"> · </span>
+      <span>Book on Fresha</span><span class="sep"> · </span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-media">
+          <img class="about-img-main" src="images/tempImageKJDhGA.jpg" alt="Inside Jolene Nail Spa" />
+          <img class="about-img-float" src="images/348s%20(1).jpg" alt="Nail art at Jolene" />
+          <div class="about-badge">
+            <strong>7+</strong>
+            <span>Years in Business</span>
+          </div>
+        </div>
+        <div class="about-text">
+          <span class="eyebrow">Our Story</span>
+          <h2 class="section-title">More Than Nails —<br><em>It's a Relationship</em></h2>
+          <p class="about-body">Jolene Nail Spa has been a fixture in Elk Grove Village for over seven years. The secret isn't a gimmick — it's Lyn. She knows her clients by voice, fits them in when it matters, and builds the kind of loyalty you only earn by genuinely caring.</p>
+          <p class="about-body">Every service is performed with attention and intention. From a quick polish change to an intricate full set, each appointment is treated as its own small work of art.</p>
+          <div class="about-stats">
+            <div class="stat">
+              <span class="stat-num">500+</span>
+              <span class="stat-label">Happy Clients</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">7+</span>
+              <span class="stat-label">Years Open</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">5★</span>
+              <span class="stat-label">Avg Rating</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <span class="services-watermark" aria-hidden="true">SERVICES</span>
+    <div class="container">
+      <div class="services-head">
+        <span class="eyebrow">What We Offer</span>
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-sub">From classic polish to intricate nail art — every service performed with care using premium, long-lasting products.</p>
+      </div>
+      <div class="services-grid">
+        <div class="svc-card">
+          <span class="svc-num">01</span>
+          <h3 class="svc-name">Fill-Ins</h3>
+          <ul class="svc-items">
+            <li class="svc-row"><span>Acrylic Fill</span><span class="svc-price">$30+</span></li>
+            <li class="svc-row"><span>Gel Fill</span><span class="svc-price">$35+</span></li>
+            <li class="svc-row"><span>Pink &amp; White Fill</span><span class="svc-price">$40+</span></li>
+            <li class="svc-row"><span>Design Add-On</span><span class="svc-price">$5+</span></li>
+          </ul>
+        </div>
+        <div class="svc-card">
+          <span class="svc-num">02</span>
+          <h3 class="svc-name">Manicure &amp; Pedicure</h3>
+          <ul class="svc-items">
+            <li class="svc-row"><span>Classic Manicure</span><span class="svc-price">$15+</span></li>
+            <li class="svc-row"><span>Gel Manicure</span><span class="svc-price">$25+</span></li>
+            <li class="svc-row"><span>Classic Pedicure</span><span class="svc-price">$25+</span></li>
+            <li class="svc-row"><span>Spa Pedicure</span><span class="svc-price">$38+</span></li>
+          </ul>
+        </div>
+        <div class="svc-card">
+          <span class="svc-num">03</span>
+          <h3 class="svc-name">Polish Changes</h3>
+          <ul class="svc-items">
+            <li class="svc-row"><span>Regular Polish — Hands</span><span class="svc-price">$10+</span></li>
+            <li class="svc-row"><span>Regular Polish — Feet</span><span class="svc-price">$12+</span></li>
+            <li class="svc-row"><span>Gel Polish — Hands</span><span class="svc-price">$20+</span></li>
+            <li class="svc-row"><span>Gel Polish — Feet</span><span class="svc-price">$25+</span></li>
+          </ul>
+        </div>
+        <div class="svc-card">
+          <span class="svc-num">04</span>
+          <h3 class="svc-name">Removal &amp; Repair</h3>
+          <ul class="svc-items">
+            <li class="svc-row"><span>Gel Removal</span><span class="svc-price">$10+</span></li>
+            <li class="svc-row"><span>Acrylic Removal</span><span class="svc-price">$15+</span></li>
+            <li class="svc-row"><span>Nail Repair (per nail)</span><span class="svc-price">$5+</span></li>
+            <li class="svc-row"><span>Full Set Soak Off</span><span class="svc-price">$20+</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="gallery-head">
+        <div>
+          <span class="eyebrow">Inside Our Spa</span>
+          <h2 class="section-title">A Glimpse of<br><em>the Experience</em></h2>
+        </div>
+        <a href="https://www.fresha.com/lvp/jolene-nail-spa-meacham-road-elk-grove-village-YKKB5B" target="_blank" rel="noopener" class="btn btn-ghost">Book Your Visit</a>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="images/348s.jpg" alt="Nail art" loading="lazy" /></div>
+        <div class="gallery-item"><img src="images/348s%20(1).jpg" alt="Nail art" loading="lazy" /></div>
+        <div class="gallery-item"><img src="images/348s%20(2).jpg" alt="Nail art" loading="lazy" /></div>
+        <div class="gallery-item"><img src="images/348s%20(3).jpg" alt="Nail art" loading="lazy" /></div>
+        <div class="gallery-item"><img src="images/tempImagedvv1Et.jpg" alt="Jolene Nail Spa" loading="lazy" /></div>
+        <div class="gallery-item"><img src="images/tempImageKJDhGA.jpg" alt="Jolene Nail Spa" loading="lazy" /></div>
+        <div class="gallery-item"><img src="images/unnamed.jpg" alt="Nail art" loading="lazy" /></div>
+        <div class="gallery-item"><img src="images/unnamed%20(1).jpg" alt="Nail art" loading="lazy" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY JOLENE -->
+  <section class="why" id="why">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-sticky">
+          <span class="eyebrow">Why Jolene</span>
+          <h2 class="section-title">The Jolene<br><em>Difference</em></h2>
+          <p class="section-sub">Seven years of loyal clients don't lie. Here's what keeps them coming back — again and again.</p>
+        </div>
+        <ul class="pillars">
+          <li class="pillar">
+            <span class="pillar-num">01</span>
+            <div>
+              <h3>Lyn Knows Your Name</h3>
+              <p>She knows her clients by voice on the phone. At Jolene, you're not a number in a booking system — you're a person, and you're treated like it every single time.</p>
+            </div>
+          </li>
+          <li class="pillar">
+            <span class="pillar-num">02</span>
+            <div>
+              <h3>Always Room for You</h3>
+              <p>Walk-ins are always welcome, and Lyn makes a habit of fitting her regulars in when they need it. Flexible scheduling, zero attitude — just genuine hospitality.</p>
+            </div>
+          </li>
+          <li class="pillar">
+            <span class="pillar-num">03</span>
+            <div>
+              <h3>500+ Color Options</h3>
+              <p>Whether you want a classic nude or something bold enough to stop traffic, we've got the palette to match your mood. Over 500 shades and always growing.</p>
+            </div>
+          </li>
+          <li class="pillar">
+            <span class="pillar-num">04</span>
+            <div>
+              <h3>A Salon That Feels Like Home</h3>
+              <p>Fun atmosphere, great conversation, professional results. There's rarely an empty chair — because once you try Jolene, you don't go anywhere else.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR TEAM -->
+  <section class="team" id="team">
+    <div class="container">
+      <div class="team-head">
+        <span class="eyebrow">The Artists</span>
+        <h2 class="section-title">Meet Our Team</h2>
+        <p class="section-sub">The talented hands behind every flawless set. Full portraits coming soon.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-placeholder">
+            <div class="team-placeholder-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.582-7 8-7s8 3 8 7"/>
+              </svg>
+            </div>
+            <span class="team-placeholder-label">Photo Coming Soon</span>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Lyn</div>
+            <div class="team-role">Owner &amp; Lead Nail Artist</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-placeholder">
+            <div class="team-placeholder-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.582-7 8-7s8 3 8 7"/>
+              </svg>
+            </div>
+            <span class="team-placeholder-label">Photo Coming Soon</span>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Team Member</div>
+            <div class="team-role">Nail Artist</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-placeholder">
+            <div class="team-placeholder-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.582-7 8-7s8 3 8 7"/>
+              </svg>
+            </div>
+            <span class="team-placeholder-label">Photo Coming Soon</span>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Team Member</div>
+            <div class="team-role">Nail Artist</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews" id="reviews">
+    <div class="container">
+      <div class="reviews-head">
+        <span class="eyebrow">What Our Clients Say</span>
+        <h2 class="section-title">A Few Happy Words</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review">
+          <div class="review-stars">★ ★ ★ ★ ★</div>
+          <p class="review-quote">"Loveeeee this place — Lyn the owner is sooo sweet. She does amazing mani pedi, all the workers are friendly and great. The only nail spa I come to, and very reasonable prices."</p>
+          <div class="review-name">Verified Client</div>
+          <div class="review-source">Google Review</div>
+        </div>
+        <div class="review">
+          <div class="review-stars">★ ★ ★ ★ ★</div>
+          <p class="review-quote">"I've been going to Jolene Nail and Spa for about 7 years and have no complaints. Lynn has always fit me in whenever I call. She knows all of her customers by voice and makes you feel important every time."</p>
+          <div class="review-name">7-Year Regular</div>
+          <div class="review-source">Google Review</div>
+        </div>
+        <div class="review">
+          <div class="review-stars">★ ★ ★ ★ ★</div>
+          <p class="review-quote">"I love this salon. Going somewhere else is not an option — great customer service, professional, fun atmosphere, and always great conversation. There is rarely an empty chair, and for good reason."</p>
+          <div class="review-name">Loyal Client</div>
+          <div class="review-source">Google Review</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK CTA -->
+  <section class="book" id="book">
+    <div class="container">
+      <div class="book-content">
+        <span class="eyebrow">Ready to Treat Yourself?</span>
+        <h2 class="section-title">Book Your<br><em>Appointment</em></h2>
+        <p class="book-sub">All bookings through Fresha — pick your service, choose your time, and you're set. Walk-ins are always welcome too.</p>
+        <div class="book-actions">
+          <a href="https://www.fresha.com/lvp/jolene-nail-spa-meacham-road-elk-grove-village-YKKB5B" target="_blank" rel="noopener" class="btn btn-primary">Reserve on Fresha</a>
+          <a href="tel:+18479230111" class="btn btn-ghost">Call (847) 923-0111</a>
+        </div>
+        <p class="book-note">Walk-ins welcome · 674 Meacham Rd Suite A, Elk Grove Village, IL</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <span class="eyebrow">Find Us</span>
+          <h2 class="section-title">Visit or<br><em>Get in Touch</em></h2>
+          <div class="info-block">
+            <span class="info-label">Address</span>
+            <div class="info-value">
+              <a href="https://maps.app.goo.gl/XMUaQGUo6qdm81tr9" target="_blank" rel="noopener">
+                674 Meacham Rd Suite A<br>Elk Grove Village, IL 60007
+              </a>
+            </div>
+          </div>
+          <div class="info-block">
+            <span class="info-label">Phone</span>
+            <div class="info-value"><a href="tel:+18479230111">(847) 923-0111</a></div>
+          </div>
+          <div class="info-block">
+            <span class="info-label">Hours</span>
+            <ul class="hours-list">
+              <li class="hours-row"><span>Mon – Fri</span><span>9:30 AM – 7:00 PM</span></li>
+              <li class="hours-row"><span>Saturday</span><span>9:00 AM – 6:00 PM</span></li>
+              <li class="hours-row"><span>Sunday</span><span>11:00 AM – 4:00 PM</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="contact-form">
+          <h3 class="section-title">Send Us<br><em>a Message</em></h3>
+          <form name="contact" method="POST" data-netlify="true">
+            <div class="field">
+              <label class="field-label" for="name">Your Name</label>
+              <input class="field-input" type="text" id="name" name="name" placeholder="Jane Smith" required />
+            </div>
+            <div class="field">
+              <label class="field-label" for="email">Email Address</label>
+              <input class="field-input" type="email" id="email" name="email" placeholder="jane@email.com" required />
+            </div>
+            <div class="field">
+              <label class="field-label" for="phone">Phone (optional)</label>
+              <input class="field-input" type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="message">Message</label>
+              <textarea class="field-input" id="message" name="message" placeholder="How can we help you?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-main">
+        <div>
+          <span class="footer-logo"><em>Jolene</em> Nail Spa</span>
+          <p class="footer-tagline">A nail spa that feels like home — because Lyn built it that way. Serving Elk Grove Village and surrounding communities for over seven years.</p>
+        </div>
+        <div>
+          <span class="footer-col-title">Navigate</span>
+          <ul class="footer-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <span class="footer-col-title">Book</span>
+          <ul class="footer-links">
+            <li><a href="https://www.fresha.com/lvp/jolene-nail-spa-meacham-road-elk-grove-village-YKKB5B" target="_blank" rel="noopener">Book on Fresha</a></li>
+            <li><a href="tel:+18479230111">(847) 923-0111</a></li>
+            <li><a href="https://maps.app.goo.gl/XMUaQGUo6qdm81tr9" target="_blank" rel="noopener">Get Directions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Jolene Nail Spa. All rights reserved.</span>
+        <span>674 Meacham Rd Suite A · Elk Grove Village, IL 60007</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('site-nav').classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* hero entrance — lines slide up from clip */
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.fromTo('.hero .eyebrow',    { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.2)
+      .fromTo('.hero .line-inner', { y: '110%' },         { y: '0%', duration: 1.1, stagger: 0.13 }, 0.35)
+      .fromTo('.hero-sub',         { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, 0.85)
+      .fromTo('.hero-actions',     { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 1.05)
+      .fromTo('.hero-scroll',      { opacity: 0 },        { opacity: 1, duration: 1 }, 1.3);
+
+    gsap.to('.hero-bg img', {
+      yPercent: 18, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+
+    /* scroll reveals */
+    document.querySelectorAll(
+      '.section-title, .section-sub, .eyebrow, .about-body, .info-block, .book-sub, .book-actions, .book-note'
+    ).forEach(el => {
+      gsap.fromTo(el,
+        { y: 36, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 88%' } }
+      );
+    });
+
+    gsap.fromTo('.about-img-main',
+      { scale: 1.07, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 1.3, ease: 'power2.out',
+        scrollTrigger: { trigger: '.about-media', start: 'top 80%' } }
+    );
+    gsap.fromTo('.about-img-float',
+      { x: 24, opacity: 0 },
+      { x: 0, opacity: 1, duration: 1, ease: 'power2.out', delay: 0.35,
+        scrollTrigger: { trigger: '.about-media', start: 'top 80%' } }
+    );
+    gsap.fromTo('.about-badge',
+      { y: -16, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.5,
+        scrollTrigger: { trigger: '.about-media', start: 'top 80%' } }
+    );
+    gsap.fromTo('.stat-num',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power2.out',
+        scrollTrigger: { trigger: '.about-stats', start: 'top 88%' } }
+    );
+
+    gsap.fromTo('.svc-card',
+      { y: 48, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power2.out',
+        scrollTrigger: { trigger: '.services-grid', start: 'top 82%' } }
+    );
+
+    gsap.fromTo('.gallery-item',
+      { scale: 0.95, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.75, stagger: { each: 0.07 }, ease: 'power2.out',
+        scrollTrigger: { trigger: '.gallery-grid', start: 'top 85%' } }
+    );
+
+    gsap.fromTo('.pillar',
+      { x: 32, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.75, stagger: 0.12, ease: 'power2.out',
+        scrollTrigger: { trigger: '.pillars', start: 'top 80%' } }
+    );
+
+    gsap.fromTo('.team-card',
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.75, stagger: 0.12, ease: 'power2.out',
+        scrollTrigger: { trigger: '.team-grid', start: 'top 82%' } }
+    );
+
+    gsap.fromTo('.review',
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.75, stagger: 0.12, ease: 'power2.out',
+        scrollTrigger: { trigger: '.reviews-grid', start: 'top 82%' } }
+    );
+
+    /* magnetic buttons */
+    document.querySelectorAll('.btn-primary').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        gsap.to(btn, {
+          x: (e.clientX - r.left - r.width  / 2) * 0.22,
+          y: (e.clientY - r.top  - r.height / 2) * 0.22,
+          duration: 0.35, ease: 'power2.out'
+        });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' });
+      });
+    });
+  </script>
+</body>
+</html>
